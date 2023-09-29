@@ -1,0 +1,149 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/3/2023 1:04:13 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-NCRFB6I"
+  DTS:CreatorName="DESKTOP-NCRFB6I\Lenovo"
+  DTS:DTSID="{ADB3199A-7787-4A09-91ED-BA81A26E70F1}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5228.0"
+  DTS:LocaleID="1036"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="63"
+  DTS:VersionGUID="{84F9AB1A-149A-46E0-BFA4-476BB92C3584}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-NCRFB6I\SQLEXPRESS.DW]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{6162E123-D2BE-4CAA-8027-8BE1CE544478}"
+      DTS:ObjectName="DESKTOP-NCRFB6I\SQLEXPRESS.DW">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-NCRFB6I\SQLEXPRESS;Initial Catalog=DW;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package1-{6162E123-D2BE-4CAA-8027-8BE1CE544478}DESKTOP-NCRFB6I\SQLEXPRESS.DW;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-NCRFB6I\SQLEXPRESS.DW2]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{FFC83847-A739-49FD-ABE5-29643A4A7E04}"
+      DTS:ObjectName="DESKTOP-NCRFB6I\SQLEXPRESS.DW2">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-NCRFB6I\SQLEXPRESS;Initial Catalog=DW2;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package1-{FFC83847-A739-49FD-ABE5-29643A4A7E04}DESKTOP-NCRFB6I\SQLEXPRESS.DW2;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\CreateDW"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Tâche d'exécution de requêtes SQL"
+      DTS:DTSID="{88EA02DB-9886-49ED-98EF-43BDE4EF3174}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="CreateDW"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{FFC83847-A739-49FD-ABE5-29643A4A7E04}"
+          SQLTask:SqlStatementSource="IF OBJECT_ID('CustomerDimension') IS NULL&#xA;BEGIN&#xA;    CREATE TABLE [dbo].[CustomerDimension](&#xA;        [Per_ID] [char](10) NOT NULL, &#xA;        [Acct_ID] [char](10) NOT NULL,&#xA;        [User_ID] [varchar](25) NULL,&#xA;        [Cust_FName] [varchar](25) NOT NULL,&#xA;        [Cust_LName] [varchar](25) NOT NULL,&#xA;        [Email_Addr] [varchar](50) NULL,&#xA;        [House_Num] [varchar](25) NULL,&#xA;        [Street_Nm] [varchar](50) NULL,&#xA;        [State] [char](2) NULL,&#xA;        [ZIP] [int] NULL,&#xA;        PRIMARY KEY ([Per_ID], [Acct_ID])&#xA;    )&#xA;END;&#xA;&#xA;IF OBJECT_ID('CalendarDimension') IS NULL&#xA;BEGIN&#xA;    CREATE TABLE [dbo].[CalendarDimension](&#xA;        FullDate DATE PRIMARY KEY,&#xA;        DayOfWeek INT,&#xA;        Weekday VARCHAR(20),&#xA;        DayOfMonth INT,&#xA;        Month INT,&#xA;        MonthNm VARCHAR(20),&#xA;        Quarter INT,&#xA;        Year INT&#xA;    )&#xA;END;&#xA;&#xA;IF OBJECT_ID('BillDimension') IS NULL&#xA;BEGIN&#xA;CREATE TABLE [dbo].[BillDimension](&#xA;&#x9;[Bill_ID] [char](12)  PRIMARY KEY NOT NULL,&#xA;&#x9;[Bill_Type] [varchar](10) NULL&#xA;)&#xA;END;&#xA;&#xA;IF OBJECT_ID('BillFacts') IS NULL&#xA;BEGIN&#xA;CREATE TABLE [dbo].[BillFacts](&#xA;&#x9;[Per_ID] [char](10) NOT NULL,&#xA;&#x9;[Acct_id] [char](10) NOT NULL,&#xA;&#x9;[Bill_ID] [char](12) NOT NULL,&#xA;&#x9;[FullDate] [date] NOT NULL,&#xA;&#x9;[Current_Balance] [numeric](7, 2) ,&#xA;&#x9;[Current_Amt_Due] [numeric](7, 2),&#xA;&#x9;[Past_Due_Amt] [numeric](7, 2) ,&#xA;PRIMARY KEY ([Per_ID], [Acct_ID], [Bill_ID] ,[FullDate]),&#xA;    FOREIGN KEY ([Per_ID], [Acct_ID]) REFERENCES [dbo].[CustomerDimension]([Per_ID], [Acct_ID]),&#xA;    FOREIGN KEY ([Bill_ID]) REFERENCES [dbo].[BillDimension]([Bill_ID]),&#xA;    FOREIGN KEY ([FullDate]) REFERENCES [dbo].[CalendarDimension]([FullDate])&#xA;)&#xA;END;&#xA;&#xA;IF OBJECT_ID('PaymentDimension') IS NULL&#xA;BEGIN&#xA;CREATE TABLE [dbo].[PaymentDimension](&#xA;&#x9;[Pay_ID] [char](15) PRIMARY KEY NOT NULL,&#xA;&#x9;[Pay_Method] [varchar](15) NOT NULL&#xA;)&#xA;END;&#xA;&#xA;IF OBJECT_ID('PaymentFacts') IS NULL&#xA;BEGIN&#xA;    CREATE TABLE [dbo].[PaymentFacts](&#xA;        [Acct_ID] [char](10) NOT NULL,   -- Made NOT NULL for primary key&#xA;        [Per_ID] [char](10) NOT NULL, &#xA;        [Pay_ID] [char](15) NOT NULL,&#xA;        [FullDate] [date] NOT NULL,     -- Made NOT NULL for primary key&#xA;        [Pay_Amt] [numeric](7, 2) NOT NULL,&#xA;        PRIMARY KEY ([Per_ID], [Acct_ID], [Pay_ID], [FullDate]),  -- Added composite primary key&#xA;        FOREIGN KEY ([Per_ID], [Acct_ID]) REFERENCES [dbo].[CustomerDimension]([Per_ID], [Acct_ID]),&#xA;        FOREIGN KEY ([Pay_ID]) REFERENCES [dbo].[PaymentDimension]([Pay_ID]),&#xA;        FOREIGN KEY ([FullDate]) REFERENCES [dbo].[CalendarDimension]([FullDate])&#xA;    )&#xA;END;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Tâche d'exécution de package"
+      DTS:CreationName="Microsoft.ExecutePackageTask"
+      DTS:Description="Tâche d'exécution de package"
+      DTS:DTSID="{1D0321BD-339D-4088-AA43-6A78A843F456}"
+      DTS:ExecutableType="Microsoft.ExecutePackageTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Tâche d'exécution de package"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <UseProjectReference>True</UseProjectReference>
+          <PackageName>CustomerDimension.dtsx</PackageName>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Contrainte]"
+      DTS:CreationName=""
+      DTS:DTSID="{BB836976-5460-44EB-AD41-98D846A4283F}"
+      DTS:From="Package\CreateDW"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Contrainte"
+      DTS:To="Package\Tâche d'exécution de package" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Cette section CDATA contient des informations sur la disposition du package. Elle comprend des informations telles que les coordonnées (x,y), la largeur et la hauteur.-->
+<!--Si vous modifiez manuellement cette section et commettez une erreur, vous pouvez la supprimer. -->
+<!--Le package pourra toujours se charger normalement, mais les informations de disposition précédente seront perdues et le concepteur réorganisera automatiquement les éléments sur l'aire de conception.-->
+<Objects
+  Version="8">
+  <!--Chaque nœud ci-dessous contiendra des propriétés qui n'affectent pas le comportement d'exécution.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="125.6,41.6"
+          Id="Package\CreateDW"
+          TopLeft="41.6666513338454,41.6509796656682" />
+        <NodeLayout
+          Size="219.2,41.6"
+          Id="Package\Tâche d'exécution de package"
+          TopLeft="51.4285556434779,144.784312281824" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Contrainte]"
+          TopLeft="104.466651333845,83.2509796656682">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="56.5619043096325,61.533332616156"
+              Start="0,0"
+              End="56.5619043096325,54.033332616156">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.766666308078" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26.766666308078"
+                    Point2="0,30.766666308078"
+                    Point3="4,30.766666308078" />
+                  <mssgle:LineSegment
+                    End="52.5619043096325,30.766666308078" />
+                  <mssgle:CubicBezierSegment
+                    Point1="52.5619043096325,30.766666308078"
+                    Point2="56.5619043096325,30.766666308078"
+                    Point3="56.5619043096325,34.766666308078" />
+                  <mssgle:LineSegment
+                    End="56.5619043096325,54.033332616156" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

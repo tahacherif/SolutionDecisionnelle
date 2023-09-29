@@ -1,0 +1,9 @@
+C:\Users\Lenovo\source\repos\Nagassas\Nagassas\bin\Model.asdatabase
+C:\Users\Lenovo\source\repos\Nagassas\Nagassas\bin\Model.deploymenttargets
+C:\Users\Lenovo\source\repos\Nagassas\Nagassas\bin\Model.deploymentoptions
+C:\Users\Lenovo\source\repos\Nagassas\Nagassas\obj\Development\Nagassas.smproj.AssemblyReference.cache
+C:\Users\Lenovo\source\repos\Nagassas\Nagassas\obj\Development\Nagassas.smproj.SuggestedBindingRedirects.cache
+C:\Users\Lenovo\source\repos\Nagassas\Nagassas\obj\Development\Nagassas.smproj.CoreCompileInputs.cache
+C:\Users\Lenovo\source\repos\Nagassas\Nagassas\obj\Development\Model.asdatabase
+C:\Users\Lenovo\source\repos\Nagassas\Nagassas\obj\Development\Model.deploymentoptions
+C:\Users\Lenovo\source\repos\Nagassas\Nagassas\obj\Development\Model.deploymenttargets

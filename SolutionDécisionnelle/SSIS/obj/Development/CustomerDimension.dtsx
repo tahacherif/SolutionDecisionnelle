@@ -1,0 +1,1482 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/3/2023 12:55:23 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-NCRFB6I"
+  DTS:CreatorName="DESKTOP-NCRFB6I\Lenovo"
+  DTS:DTSID="{7AB4C86E-0520-41F5-A31F-B283544A9F5E}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5228.0"
+  DTS:LocaleID="1036"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="42"
+  DTS:VersionGUID="{4EF4FF3F-71F4-480F-8E14-C6FF70E0FF2A}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-NCRFB6I\SQLEXPRESS.DW]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{E838AFD7-C4B4-4EB9-B3C2-BE5BA88A340E}"
+      DTS:ObjectName="DESKTOP-NCRFB6I\SQLEXPRESS.DW">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-NCRFB6I\SQLEXPRESS;Initial Catalog=DW;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package1-{E838AFD7-C4B4-4EB9-B3C2-BE5BA88A340E}DESKTOP-NCRFB6I\SQLEXPRESS.DW;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-NCRFB6I\SQLEXPRESS.DW2]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{B75C17D9-DAE1-4139-9B1E-B97B8CF59CB7}"
+      DTS:ObjectName="DESKTOP-NCRFB6I\SQLEXPRESS.DW2">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-NCRFB6I\SQLEXPRESS;Initial Catalog=DW2;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package1-{B75C17D9-DAE1-4139-9B1E-B97B8CF59CB7}DESKTOP-NCRFB6I\SQLEXPRESS.DW2;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DimCustomer"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Tâche de flux de données"
+      DTS:DTSID="{67B3AEFD-58ED-46A4-9315-EC9419E8E6BB}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DimCustomer"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DimCustomer\Commande OLE DB"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="Commande OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;2"
+              description="Exécute une instruction SQL pour chaque ligne d'un flux de données. Par exemple, appelez une procédure stockée 'nouvelle configuration d'employé' pour chaque ligne de la table 'nouveaux employés'. Remarque : l'exécution d'une instruction SQL pour chaque ligne d'un flux de données volumineux peut prendre beaucoup de temps."
+              name="Commande OLE DB"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">update [dbo].[CustomerDimension] 
+set  
+	
+	[User_ID]  = ?,
+	[Cust_FName]  = ?,
+	[Cust_LName]  = ?,
+	[Email_Addr]  = ?,
+	[House_Num]  = ?,
+	[Street_Nm]  = ?,
+	[State]  = ?,
+	[ZIP]  = ?
+
+where [Acct_ID]  = ? and [Per_ID]  = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DimCustomer\Commande OLE DB.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-NCRFB6I\SQLEXPRESS.DW2]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-NCRFB6I\SQLEXPRESS.DW2]"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB]"
+                  errorOrTruncationOperation="Exécution de commande"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrée de commande OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[Per_ID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Per_ID"
+                      externalMetadataColumnId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_9]"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Per_ID]" />
+                    <inputColumn
+                      refId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[Acct_ID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Acct_ID"
+                      externalMetadataColumnId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_8]"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Acct_ID]" />
+                    <inputColumn
+                      refId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[ZIP]"
+                      cachedDataType="i4"
+                      cachedName="ZIP"
+                      externalMetadataColumnId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_7]"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[ZIP]" />
+                    <inputColumn
+                      refId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[State]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="State"
+                      externalMetadataColumnId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_6]"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[State]" />
+                    <inputColumn
+                      refId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[Street_Nm]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Street_Nm"
+                      externalMetadataColumnId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_5]"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Street_Nm]" />
+                    <inputColumn
+                      refId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[House_Num]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="25"
+                      cachedName="House_Num"
+                      externalMetadataColumnId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_4]"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[House_Num]" />
+                    <inputColumn
+                      refId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[Email_Addr]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Email_Addr"
+                      externalMetadataColumnId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_3]"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Email_Addr]" />
+                    <inputColumn
+                      refId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[Cust_LName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="25"
+                      cachedName="Cust_LName"
+                      externalMetadataColumnId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_2]"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Cust_LName]" />
+                    <inputColumn
+                      refId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[Cust_FName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="25"
+                      cachedName="Cust_FName"
+                      externalMetadataColumnId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_1]"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Cust_FName]" />
+                    <inputColumn
+                      refId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].Columns[User_ID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="25"
+                      cachedName="User_ID"
+                      externalMetadataColumnId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_0]"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[User_ID]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_0]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      name="Param_2">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Param_3">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_4]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      name="Param_4">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_5]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Param_5">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_6]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="Param_6">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_7]"
+                      dataType="i4"
+                      name="Param_7">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_8]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="Param_8">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB].ExternalColumns[Param_9]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="Param_9">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Informations de paramètre.  Correspond aux valeurs DBPARAMFLAGSENUM OLE DB."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DimCustomer\Commande OLE DB.Outputs[Sortie de commande OLE DB]"
+                  exclusionGroup="1"
+                  name="Sortie de commande OLE DB"
+                  synchronousInputId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DimCustomer\Commande OLE DB.Outputs[Sortie d'erreur de commande OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de commande OLE DB"
+                  synchronousInputId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DimCustomer\Commande OLE DB.Outputs[Sortie d'erreur de commande OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DimCustomer\Commande OLE DB.Outputs[Sortie d'erreur de commande OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DimCustomer\Commande OLE DB.Outputs[Sortie d'erreur de commande OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DimCustomer\Commande OLE DB.Outputs[Sortie d'erreur de commande OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DimCustomer\Destination OLE DB"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="Destination OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;4"
+              description="Destination OLE DB"
+              name="Destination OLE DB"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowset">[dbo].[CustomerDimension]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Force l'utilisation de la valeur de propriété DefaultCodePage lors de la description des données caractères."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le mode utilisé pour accéder à la base de données."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si les valeurs fournies pour les colonnes d'identité seront copiées à la destination. Si la valeur est définie à False, les valeurs des colonnes d'identité seront générées automatiquement à la destination. Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indique si les colonnes contenant la valeur NULL auront cette valeur NULL copiée à la destination. Si la valeur est définie à False, les colonnes contenant la valeur NULL auront leurs valeurs par défaut insérées à la destination. Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie les options à utiliser avec le chargement rapide.  Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie quand les validations sont émises pendant l'insertion des données.  Une valeur égale à 0 spécifie qu'une validation sera émise à la fin de l'insertion des données.  Ne s'applique que si le chargement rapide est activé."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DimCustomer\Destination OLE DB.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-NCRFB6I\SQLEXPRESS.DW2]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-NCRFB6I\SQLEXPRESS.DW2]"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB]"
+                  errorOrTruncationOperation="Insérer"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Entrée de destination OLE DB">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Per_ID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Per_ID"
+                      externalMetadataColumnId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Per_ID]"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Per_ID]" />
+                    <inputColumn
+                      refId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Acct_ID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Acct_ID"
+                      externalMetadataColumnId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Acct_ID]"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Acct_ID]" />
+                    <inputColumn
+                      refId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[User_ID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="25"
+                      cachedName="User_ID"
+                      externalMetadataColumnId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[User_ID]"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[User_ID]" />
+                    <inputColumn
+                      refId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Cust_FName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="25"
+                      cachedName="Cust_FName"
+                      externalMetadataColumnId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Cust_FName]"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Cust_FName]" />
+                    <inputColumn
+                      refId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Cust_LName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="25"
+                      cachedName="Cust_LName"
+                      externalMetadataColumnId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Cust_LName]"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Cust_LName]" />
+                    <inputColumn
+                      refId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Email_Addr]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Email_Addr"
+                      externalMetadataColumnId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Email_Addr]"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Email_Addr]" />
+                    <inputColumn
+                      refId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[House_Num]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="25"
+                      cachedName="House_Num"
+                      externalMetadataColumnId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[House_Num]"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[House_Num]" />
+                    <inputColumn
+                      refId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[Street_Nm]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Street_Nm"
+                      externalMetadataColumnId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Street_Nm]"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Street_Nm]" />
+                    <inputColumn
+                      refId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[State]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="State"
+                      externalMetadataColumnId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[State]"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[State]" />
+                    <inputColumn
+                      refId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].Columns[ZIP]"
+                      cachedDataType="i4"
+                      cachedName="ZIP"
+                      externalMetadataColumnId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[ZIP]"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[ZIP]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Per_ID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="Per_ID" />
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Acct_ID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="Acct_ID" />
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[User_ID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      name="User_ID" />
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Cust_FName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      name="Cust_FName" />
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Cust_LName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      name="Cust_LName" />
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Email_Addr]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Email_Addr" />
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[House_Num]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      name="House_Num" />
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[Street_Nm]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Street_Nm" />
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="State" />
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB].ExternalColumns[ZIP]"
+                      dataType="i4"
+                      name="ZIP" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DimCustomer\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de destination OLE DB"
+                  synchronousInputId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DimCustomer\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DimCustomer\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DimCustomer\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DimCustomer\Destination OLE DB.Outputs[Sortie d'erreur de destination OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DimCustomer\Recherche"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Recherche;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;6"
+              description="Joint des colonnes supplémentaires au flux de données en recherchant des valeurs dans une table. Par exemple, joignez la colonne 'id employé' à la table des employés afin d'obtenir la 'date d'embauche' et le 'nom de l'employé'. Nous recommandons cette transformation lorsque la table de recherche peut être stockée en mémoire."
+              name="Recherche"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Spécifie l'instruction SQL qui génère la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[CustomerDimension]</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie une instruction SQL qui utilise des paramètres pour générer la table de correspondance."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[CustomerDimension]) [refTable]
+where [refTable].[Per_ID] = ? and [refTable].[Acct_ID] = ? and [refTable].[User_ID] = ? and [refTable].[Cust_FName] = ? and [refTable].[Cust_LName] = ? and [refTable].[Email_Addr] = ? and [refTable].[House_Num] = ? and [refTable].[Street_Nm] = ? and [refTable].[State] = ? and [refTable].[ZIP] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de connexion utilisé pour accéder au dataset de référence."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le type de cache de la table de correspondance."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie comment la transformation de recherche gère les lignes sans entrées correspondantes dans le jeu de données de référence."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le pourcentage du cache alloué aux lignes sans entrées correspondantes dans le dataset de référence."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 32 bits."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Utilisation maximale de la mémoire pour le cache de référence sur une plateforme 64 bits."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indique si les métadonnées sont à référencer en format XML."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Per_ID" dataType="DT_STR" length="10" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Acct_ID" dataType="DT_STR" length="10" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="User_ID" dataType="DT_STR" length="25" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Cust_FName" dataType="DT_STR" length="25" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Cust_LName" dataType="DT_STR" length="25" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Email_Addr" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="House_Num" dataType="DT_STR" length="25" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Street_Nm" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="State" dataType="DT_STR" length="2" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="ZIP" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Spécifie la liste d'identificateurs de traçabilité se mappant aux paramètres utilisés dans la propriété SQLCommand par l'instruction SQL. Les entrées dans la liste sont séparées par des points-virgules."
+                  name="ParameterMap">#{Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Per_ID]};#{Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Acct_ID]};#{Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[User_ID]};#{Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Cust_FName]};#{Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Cust_LName]};#{Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Email_Addr]};#{Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[House_Num]};#{Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Street_Nm]};#{Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[State]};#{Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[ZIP]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Détermine si les clés dupliquées dans les données de référence doivent être traitées en tant qu'erreurs lorsque le mode Cache complet est utilisé."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DimCustomer\Recherche.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-NCRFB6I\SQLEXPRESS.DW2]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-NCRFB6I\SQLEXPRESS.DW2]"
+                  description="Gestionnaire de connexions utilisé pour accéder aux données de correspondance."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DimCustomer\Recherche.Inputs[Entrée de recherche]"
+                  name="Entrée de recherche">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DimCustomer\Recherche.Inputs[Entrée de recherche].Columns[Per_ID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Per_ID"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Per_ID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Per_ID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DimCustomer\Recherche.Inputs[Entrée de recherche].Columns[Acct_ID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="Acct_ID"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Acct_ID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Acct_ID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DimCustomer\Recherche.Inputs[Entrée de recherche].Columns[User_ID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="25"
+                      cachedName="User_ID"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[User_ID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">User_ID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DimCustomer\Recherche.Inputs[Entrée de recherche].Columns[Cust_FName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="25"
+                      cachedName="Cust_FName"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Cust_FName]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Cust_FName</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DimCustomer\Recherche.Inputs[Entrée de recherche].Columns[Cust_LName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="25"
+                      cachedName="Cust_LName"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Cust_LName]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Cust_LName</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DimCustomer\Recherche.Inputs[Entrée de recherche].Columns[Email_Addr]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Email_Addr"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Email_Addr]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Email_Addr</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DimCustomer\Recherche.Inputs[Entrée de recherche].Columns[House_Num]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="25"
+                      cachedName="House_Num"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[House_Num]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">House_Num</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DimCustomer\Recherche.Inputs[Entrée de recherche].Columns[Street_Nm]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Street_Nm"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Street_Nm]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">Street_Nm</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DimCustomer\Recherche.Inputs[Entrée de recherche].Columns[State]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="State"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[State]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">State</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DimCustomer\Recherche.Inputs[Entrée de recherche].Columns[ZIP]"
+                      cachedDataType="i4"
+                      cachedName="ZIP"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[ZIP]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Spécifie la colonne de la table de référence sur laquelle une colonne se lie."
+                          name="JoinToReferenceColumn">ZIP</property>
+                        <property
+                          dataType="System.Null"
+                          description="Spécifie la colonne de la table de référence à partir de laquelle une colonne est copiée."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DimCustomer\Recherche.Outputs[Sortie de recherche avec correspondance]"
+                  errorOrTruncationOperation="Recherche"
+                  exclusionGroup="1"
+                  name="Sortie de recherche avec correspondance"
+                  synchronousInputId="Package\DimCustomer\Recherche.Inputs[Entrée de recherche]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DimCustomer\Recherche.Outputs[Sortie de recherche sans correspondance]"
+                  description="Sortie de recherche gérant les lignes sans entrées correspondantes dans le dataset de référence. Utilisez cette sortie lorsque la propriété NoMatchBehavior a la valeur « Envoyez les lignes sans entrées correspondantes dans la sortie sans correspondance »."
+                  exclusionGroup="1"
+                  name="Sortie de recherche sans correspondance"
+                  synchronousInputId="Package\DimCustomer\Recherche.Inputs[Entrée de recherche]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DimCustomer\Recherche.Outputs[Sortie d'erreur de recherche]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de recherche"
+                  synchronousInputId="Package\DimCustomer\Recherche.Inputs[Entrée de recherche]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DimCustomer\Recherche.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DimCustomer\Recherche.Outputs[Sortie d'erreur de recherche].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DimCustomer\Recherche.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DimCustomer\Recherche.Outputs[Sortie d'erreur de recherche].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DimCustomer\Source OLE DB"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="Source OLE DB;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; Tous droits réservés; http://www.microsoft.com/sql/support;7"
+              description="Source OLE DB"
+              name="Source OLE DB"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Nombre de secondes avant l'expiration d'une commande.  Une valeur égale à 0 indique un délai d'expiration infini."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Spécifie la variable contenant le nom de l'objet de base de données utilisé pour ouvrir un ensemble de lignes."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="Commande SQL à exécuter."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT PERSON.Per_ID, ACCOUNT.Acct_ID, SS_WEBSITE_USER.User_ID, PERSON.Cust_FName,
+PERSON.Cust_LName, 
+SS_WEBSITE_USER.Email_Addr, ACCOUNT.House_Num, ACCOUNT.Street_Nm, ACCOUNT.State, ACCOUNT.ZIP 
+FROM DW.dbo.PERSON 
+left join DW.dbo.SS_WEBSITE_USER ON PERSON.Per_ID = SS_WEBSITE_USER.Per_ID 
+left join DW.dbo.ACCOUNT ON PERSON.Per_ID = ACCOUNT.Per_ID</property>
+                <property
+                  dataType="System.String"
+                  description="Variable contenant la commande SQL à exécuter."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie la page de codes de la colonne à utiliser lorsque les informations de page de codes ne sont pas disponibles à partir de la source de données."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Force l'utilisation de la valeur de propriété DefaultCodePage lors de la description des données caractères."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Spécifie le mode utilisé pour accéder à la base de données."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="Mappages entre les paramètres de la commande SQL et les variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DimCustomer\Source OLE DB.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-NCRFB6I\SQLEXPRESS.DW]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-NCRFB6I\SQLEXPRESS.DW]"
+                  description="Connexion OLE DB en cours d'exécution utilisée pour accéder à la base de données."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB]"
+                  name="Sortie de source OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Per_ID]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Per_ID]"
+                      length="10"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Per_ID]"
+                      name="Per_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Acct_ID]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Acct_ID]"
+                      length="10"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Acct_ID]"
+                      name="Acct_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[User_ID]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[User_ID]"
+                      length="25"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[User_ID]"
+                      name="User_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Cust_FName]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Cust_FName]"
+                      length="25"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Cust_FName]"
+                      name="Cust_FName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Cust_LName]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Cust_LName]"
+                      length="25"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Cust_LName]"
+                      name="Cust_LName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Email_Addr]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Email_Addr]"
+                      length="50"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Email_Addr]"
+                      name="Email_Addr"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[House_Num]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[House_Num]"
+                      length="25"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[House_Num]"
+                      name="House_Num"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Street_Nm]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Street_Nm]"
+                      length="50"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[Street_Nm]"
+                      name="Street_Nm"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[State]"
+                      length="2"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[State]"
+                      name="State"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[ZIP]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[ZIP]"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].Columns[ZIP]"
+                      name="ZIP"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Per_ID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="Per_ID" />
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Acct_ID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="Acct_ID" />
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[User_ID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      name="User_ID" />
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Cust_FName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      name="Cust_FName" />
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Cust_LName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      name="Cust_LName" />
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Email_Addr]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Email_Addr" />
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[House_Num]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      name="House_Num" />
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[Street_Nm]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Street_Nm" />
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="State" />
+                    <externalMetadataColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB].ExternalColumns[ZIP]"
+                      dataType="i4"
+                      name="ZIP" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB]"
+                  isErrorOut="true"
+                  name="Sortie d'erreur de source OLE DB">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Per_ID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Per_ID]"
+                      name="Per_ID" />
+                    <outputColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Acct_ID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Acct_ID]"
+                      name="Acct_ID" />
+                    <outputColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[User_ID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[User_ID]"
+                      name="User_ID" />
+                    <outputColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Cust_FName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Cust_FName]"
+                      name="Cust_FName" />
+                    <outputColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Cust_LName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Cust_LName]"
+                      name="Cust_LName" />
+                    <outputColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Email_Addr]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Email_Addr]"
+                      name="Email_Addr" />
+                    <outputColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[House_Num]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[House_Num]"
+                      name="House_Num" />
+                    <outputColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Street_Nm]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[Street_Nm]"
+                      name="Street_Nm" />
+                    <outputColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[State]"
+                      name="State" />
+                    <outputColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[ZIP]"
+                      dataType="i4"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[ZIP]"
+                      name="ZIP" />
+                    <outputColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DimCustomer\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DimCustomer\Source OLE DB.Outputs[Sortie d'erreur de source OLE DB].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DimCustomer.Paths[Sortie de recherche avec correspondance]"
+              endId="Package\DimCustomer\Commande OLE DB.Inputs[Entrée de commande OLE DB]"
+              name="Sortie de recherche avec correspondance"
+              startId="Package\DimCustomer\Recherche.Outputs[Sortie de recherche avec correspondance]" />
+            <path
+              refId="Package\DimCustomer.Paths[Sortie de recherche sans correspondance]"
+              endId="Package\DimCustomer\Destination OLE DB.Inputs[Entrée de destination OLE DB]"
+              name="Sortie de recherche sans correspondance"
+              startId="Package\DimCustomer\Recherche.Outputs[Sortie de recherche sans correspondance]" />
+            <path
+              refId="Package\DimCustomer.Paths[Sortie de source OLE DB]"
+              endId="Package\DimCustomer\Recherche.Inputs[Entrée de recherche]"
+              name="Sortie de source OLE DB"
+              startId="Package\DimCustomer\Source OLE DB.Outputs[Sortie de source OLE DB]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Tâche d'exécution de package"
+      DTS:CreationName="Microsoft.ExecutePackageTask"
+      DTS:Description="Tâche d'exécution de package"
+      DTS:DTSID="{AAC1D02A-FECF-4158-85AD-F5144C8BC4DD}"
+      DTS:ExecutableType="Microsoft.ExecutePackageTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Tâche d'exécution de package"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <UseProjectReference>True</UseProjectReference>
+          <PackageName>CalendarDimension.dtsx</PackageName>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Contrainte]"
+      DTS:CreationName=""
+      DTS:DTSID="{40640EBE-5278-4971-A294-B573C4A2D376}"
+      DTS:From="Package\DimCustomer"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Contrainte"
+      DTS:To="Package\Tâche d'exécution de package" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Cette section CDATA contient des informations sur la disposition du package. Elle comprend des informations telles que les coordonnées (x,y), la largeur et la hauteur.-->
+<!--Si vous modifiez manuellement cette section et commettez une erreur, vous pouvez la supprimer. -->
+<!--Le package pourra toujours se charger normalement, mais les informations de disposition précédente seront perdues et le concepteur réorganisera automatiquement les éléments sur l'aire de conception.-->
+<Objects
+  Version="8">
+  <!--Chaque nœud ci-dessous contiendra des propriétés qui n'affectent pas le comportement d'exécution.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="142.4,41.6"
+          Id="Package\DimCustomer"
+          TopLeft="294.166650594109,126.533332453436" />
+        <NodeLayout
+          Size="219.2,41.6"
+          Id="Package\Tâche d'exécution de package"
+          TopLeft="260.499986067415,197.899998662074" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Contrainte]"
+          TopLeft="367.733318330762,168.133332453436">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29.7666662086384"
+              Start="0,0"
+              End="0,22.2666662086384">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.2666662086384" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\DimCustomer">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="149.6,41.6"
+          Id="Package\DimCustomer\Source OLE DB"
+          TopLeft="109.999993989865,122.199999150236" />
+        <NodeLayout
+          Size="172.8,41.6"
+          Id="Package\DimCustomer\Commande OLE DB"
+          TopLeft="514.16663857384,207.133331892954" />
+        <NodeLayout
+          Size="127.2,41.6"
+          Id="Package\DimCustomer\Recherche"
+          TopLeft="326.666648818388,122.199999150236" />
+        <NodeLayout
+          Size="170.4,41.6"
+          Id="Package\DimCustomer\Destination OLE DB"
+          TopLeft="573.714251870658,67.6960778501528" />
+        <EdgeLayout
+          Id="Package\DimCustomer.Paths[Sortie de recherche avec correspondance]"
+          TopLeft="390.266648818388,163.799999150236">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="210.299989755452,43.333332742718"
+              Start="0,0"
+              End="210.299989755452,35.833332742718">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.666666371359" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.666666371359"
+                    Point2="0,21.666666371359"
+                    Point3="4,21.666666371359" />
+                  <mssgle:LineSegment
+                    End="206.299989755452,21.666666371359" />
+                  <mssgle:CubicBezierSegment
+                    Point1="206.299989755452,21.666666371359"
+                    Point2="210.299989755452,21.666666371359"
+                    Point3="210.299989755452,25.666666371359" />
+                  <mssgle:LineSegment
+                    End="210.299989755452,35.833332742718" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="13.472983158976,26.666666371359,183.3540234375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DimCustomer.Paths[Sortie de source OLE DB]"
+          TopLeft="259.599993989865,142.999999150236">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="67.066654828523,0"
+              Start="0,0"
+              End="59.566654828523,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="59.566654828523,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DimCustomer.Paths[Sortie de recherche sans correspondance]"
+          TopLeft="453.866648818388,142.999999150236">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="119.84760305227,-54.5039213000832"
+              Start="0,0"
+              End="112.34760305227,-54.5039213000832">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="55.923801526135,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="55.923801526135,0"
+                    Point2="59.923801526135,0"
+                    Point3="59.923801526135,-4" />
+                  <mssgle:LineSegment
+                    End="59.923801526135,-50.5039213000832" />
+                  <mssgle:CubicBezierSegment
+                    Point1="59.923801526135,-50.5039213000832"
+                    Point2="59.923801526135,-54.5039213000832"
+                    Point3="63.923801526135,-54.5039213000832" />
+                  <mssgle:LineSegment
+                    End="112.34760305227,-54.5039213000832" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-31.578210192615,1,183.0040234375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DimCustomer\Source OLE DB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DimCustomer\Recherche">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[CustomerDimension]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DimCustomer\Destination OLE DB">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

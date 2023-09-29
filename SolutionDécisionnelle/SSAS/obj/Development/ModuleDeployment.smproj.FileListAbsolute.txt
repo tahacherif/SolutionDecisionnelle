@@ -1,0 +1,8 @@
+D:\Documents\Internships\CRNS\Ressources\NagasTest\Nagassas\bin\Model.asdatabase
+D:\Documents\Internships\CRNS\Ressources\NagasTest\Nagassas\bin\Model.deploymenttargets
+D:\Documents\Internships\CRNS\Ressources\NagasTest\Nagassas\bin\Model.deploymentoptions
+D:\Documents\Internships\CRNS\Ressources\NagasTest\Nagassas\obj\Development\ModuleDeployment.smproj.AssemblyReference.cache
+D:\Documents\Internships\CRNS\Ressources\NagasTest\Nagassas\obj\Development\ModuleDeployment.smproj.CoreCompileInputs.cache
+D:\Documents\Internships\CRNS\Ressources\NagasTest\Nagassas\obj\Development\Model.asdatabase
+D:\Documents\Internships\CRNS\Ressources\NagasTest\Nagassas\obj\Development\Model.deploymentoptions
+D:\Documents\Internships\CRNS\Ressources\NagasTest\Nagassas\obj\Development\Model.deploymenttargets

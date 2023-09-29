@@ -1,0 +1,500 @@
+{
+  "name": "Nagassas",
+  "compatibilityLevel": 1200,
+  "model": {
+    "name": "Modèle",
+    "culture": "fr-FR",
+    "dataSources": [
+      {
+        "name": "Cube_",
+        "connectionString": "Provider=SQLNCLI11;Data Source=DESKTOP-NCRFB6I\\SQLEXPRESS;Initial Catalog=DW2;User ID=test;Persist Security Info=false",
+        "impersonationMode": "impersonateServiceAccount",
+        "annotations": [
+          {
+            "name": "ConnectionEditUISource",
+            "value": "SqlServer"
+          }
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "name": "BillDimension",
+        "columns": [
+          {
+            "name": "Bill_ID",
+            "dataType": "string",
+            "sourceColumn": "Bill_ID",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "Bill_Type",
+            "dataType": "string",
+            "sourceColumn": "Bill_Type",
+            "sourceProviderType": "Char"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "BillDimension",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": " \t\t\t\tSELECT [dbo].[BillDimension].*   FROM [dbo].[BillDimension] ",
+              "dataSource": "Cube_"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " \t\t\t\tSELECT [dbo].[BillDimension].*   FROM [dbo].[BillDimension] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "BillDimension"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "dbo"
+          }
+        ]
+      },
+      {
+        "name": "BillFacts",
+        "columns": [
+          {
+            "name": "Per_ID",
+            "dataType": "string",
+            "sourceColumn": "Per_ID",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "Acct_id",
+            "dataType": "string",
+            "sourceColumn": "Acct_id",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "Bill_ID",
+            "dataType": "string",
+            "sourceColumn": "Bill_ID",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "FullDate",
+            "dataType": "dateTime",
+            "sourceColumn": "FullDate",
+            "formatString": "General Date",
+            "sourceProviderType": "DBDate"
+          },
+          {
+            "name": "Current_Balance",
+            "dataType": "double",
+            "sourceColumn": "Current_Balance",
+            "sourceProviderType": "Numeric"
+          },
+          {
+            "name": "Current_Amt_Due",
+            "dataType": "double",
+            "sourceColumn": "Current_Amt_Due",
+            "sourceProviderType": "Numeric"
+          },
+          {
+            "name": "Past_Due_Amt",
+            "dataType": "double",
+            "sourceColumn": "Past_Due_Amt",
+            "sourceProviderType": "Numeric"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "BillFacts",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": " \t\t\t\tSELECT [dbo].[BillFacts].*   FROM [dbo].[BillFacts] ",
+              "dataSource": "Cube_"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " \t\t\t\tSELECT [dbo].[BillFacts].*   FROM [dbo].[BillFacts] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "BillFacts"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "dbo"
+          }
+        ]
+      },
+      {
+        "name": "CalendarDimension",
+        "columns": [
+          {
+            "name": "FullDate",
+            "dataType": "dateTime",
+            "sourceColumn": "FullDate",
+            "formatString": "General Date",
+            "sourceProviderType": "DBDate"
+          },
+          {
+            "name": "DayOfWeek",
+            "dataType": "int64",
+            "sourceColumn": "DayOfWeek",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Weekday",
+            "dataType": "string",
+            "sourceColumn": "Weekday",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "DayOfMonth",
+            "dataType": "int64",
+            "sourceColumn": "DayOfMonth",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Month",
+            "dataType": "int64",
+            "sourceColumn": "Month",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "MonthNm",
+            "dataType": "string",
+            "sourceColumn": "MonthNm",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "Quarter",
+            "dataType": "int64",
+            "sourceColumn": "Quarter",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "Year",
+            "dataType": "int64",
+            "sourceColumn": "Year",
+            "sourceProviderType": "Integer"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "CalendarDimension",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": " \t\t\t\tSELECT [dbo].[CalendarDimension].*   FROM [dbo].[CalendarDimension] ",
+              "dataSource": "Cube_"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " \t\t\t\tSELECT [dbo].[CalendarDimension].*   FROM [dbo].[CalendarDimension] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "CalendarDimension"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "dbo"
+          }
+        ]
+      },
+      {
+        "name": "CustomerDimension",
+        "columns": [
+          {
+            "name": "Per_ID",
+            "dataType": "string",
+            "sourceColumn": "Per_ID",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "Acct_ID",
+            "dataType": "string",
+            "sourceColumn": "Acct_ID",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "User_ID",
+            "dataType": "string",
+            "sourceColumn": "User_ID",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "Cust_FName",
+            "dataType": "string",
+            "sourceColumn": "Cust_FName",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "Cust_LName",
+            "dataType": "string",
+            "sourceColumn": "Cust_LName",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "Email_Addr",
+            "dataType": "string",
+            "sourceColumn": "Email_Addr",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "House_Num",
+            "dataType": "string",
+            "sourceColumn": "House_Num",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "Street_Nm",
+            "dataType": "string",
+            "sourceColumn": "Street_Nm",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "State",
+            "dataType": "string",
+            "sourceColumn": "State",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "ZIP",
+            "dataType": "int64",
+            "sourceColumn": "ZIP",
+            "sourceProviderType": "Integer"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "CustomerDimension",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": " \t\t\t\tSELECT [dbo].[CustomerDimension].*   FROM [dbo].[CustomerDimension] ",
+              "dataSource": "Cube_"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " \t\t\t\tSELECT [dbo].[CustomerDimension].*   FROM [dbo].[CustomerDimension] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "CustomerDimension"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "dbo"
+          }
+        ]
+      },
+      {
+        "name": "PaymentDimension",
+        "columns": [
+          {
+            "name": "Pay_ID",
+            "dataType": "string",
+            "sourceColumn": "Pay_ID",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "Pay_Method",
+            "dataType": "string",
+            "sourceColumn": "Pay_Method",
+            "sourceProviderType": "Char"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "PaymentDimension",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": " \t\t\t\tSELECT [dbo].[PaymentDimension].*   FROM [dbo].[PaymentDimension] ",
+              "dataSource": "Cube_"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " \t\t\t\tSELECT [dbo].[PaymentDimension].*   FROM [dbo].[PaymentDimension] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "PaymentDimension"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "dbo"
+          }
+        ]
+      },
+      {
+        "name": "PaymentFacts",
+        "columns": [
+          {
+            "name": "Acct_ID",
+            "dataType": "string",
+            "sourceColumn": "Acct_ID",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "Per_ID",
+            "dataType": "string",
+            "sourceColumn": "Per_ID",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "Pay_ID",
+            "dataType": "string",
+            "sourceColumn": "Pay_ID",
+            "sourceProviderType": "Char"
+          },
+          {
+            "name": "FullDate",
+            "dataType": "dateTime",
+            "sourceColumn": "FullDate",
+            "formatString": "General Date",
+            "sourceProviderType": "DBDate"
+          },
+          {
+            "name": "Pay_Amt",
+            "dataType": "double",
+            "sourceColumn": "Pay_Amt",
+            "sourceProviderType": "Numeric"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "PaymentFacts",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": " \t\t\t\tSELECT [dbo].[PaymentFacts].*   FROM [dbo].[PaymentFacts] ",
+              "dataSource": "Cube_"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " \t\t\t\tSELECT [dbo].[PaymentFacts].*   FROM [dbo].[PaymentFacts] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "PaymentFacts"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "dbo"
+          }
+        ]
+      },
+      {
+        "name": "sysdiagrams",
+        "columns": [
+          {
+            "name": "name",
+            "dataType": "string",
+            "sourceColumn": "name",
+            "sourceProviderType": "WChar"
+          },
+          {
+            "name": "principal_id",
+            "dataType": "int64",
+            "sourceColumn": "principal_id",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "diagram_id",
+            "dataType": "int64",
+            "sourceColumn": "diagram_id",
+            "sourceProviderType": "Integer"
+          },
+          {
+            "name": "version",
+            "dataType": "int64",
+            "sourceColumn": "version",
+            "sourceProviderType": "Integer"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "sysdiagrams",
+            "dataView": "full",
+            "source": {
+              "type": "query",
+              "query": " \t\t\t\tSELECT [dbo].[sysdiagrams].*   FROM [dbo].[sysdiagrams] ",
+              "dataSource": "Cube_"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "_TM_ExtProp_QueryDefinition",
+            "value": " \t\t\t\tSELECT [dbo].[sysdiagrams].*   FROM [dbo].[sysdiagrams] "
+          },
+          {
+            "name": "_TM_ExtProp_DbTableName",
+            "value": "sysdiagrams"
+          },
+          {
+            "name": "_TM_ExtProp_DbSchemaName",
+            "value": "dbo"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "08225627-5dbc-4bc9-b542-d0099bced655",
+        "fromTable": "BillFacts",
+        "fromColumn": "FullDate",
+        "toTable": "CalendarDimension",
+        "toColumn": "FullDate"
+      },
+      {
+        "name": "a64caafb-7ab3-4b90-b2e0-a2784cccc16f",
+        "fromTable": "PaymentFacts",
+        "fromColumn": "FullDate",
+        "toTable": "CalendarDimension",
+        "toColumn": "FullDate"
+      },
+      {
+        "name": "b603d2fd-d78c-4f5e-90d1-85240d7a4226",
+        "fromTable": "BillFacts",
+        "fromColumn": "Bill_ID",
+        "toTable": "BillDimension",
+        "toColumn": "Bill_ID"
+      },
+      {
+        "name": "2c8bd3c2-f237-492d-97f9-1be6383858d6",
+        "fromTable": "PaymentFacts",
+        "fromColumn": "Pay_ID",
+        "toTable": "PaymentDimension",
+        "toColumn": "Pay_ID"
+      }
+    ],
+    "annotations": [
+      {
+        "name": "ClientCompatibilityLevel",
+        "value": "400"
+      }
+    ]
+  }
+}
